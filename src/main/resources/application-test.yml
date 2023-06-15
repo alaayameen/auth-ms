@@ -1,0 +1,123 @@
+otp:
+  generate:
+    sms:
+      brandName: AuthApp
+      apiSecret: zsdfdfasfasf
+      apiKey: 1c7d45e3
+    #durationMs = 10 min
+    durationMs: 600000
+    #33 min
+    restMaxNumberOfAttemptsDurationMs: 2000000
+    maxNumberOfAttempts: 5
+  validate:
+    enabled: false
+    restMaxNumberOfAttemptsDurationMs: 4000000
+    maxNumberOfAttempts: 10
+
+google:
+  appIds:
+    - 234234234234-11122222c2b0blm7j57m1lr1cfo3vek.apps.googleusercontent.com
+    - 342343423333-33333333vai6mdtohsdu7glvfa0r.apps.googleusercontent.com
+
+faceBook:
+  tokenUrl: https://graph.facebook.com/me
+  validateTokenUrl: https://graph.facebook.com/debug_token?
+  facebookAppId: 111111111|22222222222222222
+
+aws:
+  cloudmap:
+    enabled: false
+    namespace: dev
+  clients:
+    user-ms:
+      fullHost: http://localhost:8082
+      serviceName: user-ms-v1
+      port: 8082
+      protocol: http://
+
+ms:
+  basepath: auth
+
+auth:
+  jwt:
+    jwtRefreshExpirationMs: 3000000000
+    issuer: "Auth App"
+    audience: "Auth App"
+    timeToLiveInSeconds: 120000
+    secret: "nrn81Ww9dACgowcWPRQMsdfgB4mUJCFx+ILqZCV2cnQQfkTpWH/4r2Tx3VvhusdfgdfgCMsjJ1kIDZYx0iBpH2RFedqJ3WTdVJr9Jg0yI0nKqdDYfaYRh58hLpVVZg3WE3pmlaNqhXT5ZcOQ144wDitFn1/d9iIrj7n8KDlSSpGWsdfgsdfgsdfgBczR7N0V8gP8Kyggt8cFCyU4CYszcbAwPgfYdZSA=="
+    excludedList:
+      - /auth/v1/otp/sendVerificationCode
+      - /auth/v1/forgetPassword
+      - /auth/v1/resetPassword
+      - /auth/v1/loginByGoogle
+      - /auth/v1/loginByFacebook
+      - /auth/v1/otp/validate
+      - /auth/v1/registerByMobile
+      - /auth/v1/loginByMobile
+      - /auth/v1/loginByApple
+      - /auth/v1/refreshtoken
+      - /auth/v1/verifyBirthday
+      - /auth/v1/checkUserVerificationStatus
+      - /auth/v1/login
+      - /auth/v1/register
+      
+    adminList:
+      - /user/v1/addNewUser
+      - /auth/v1/deleteAuthByUserIds
+      - /auth/v1/getBlockedDevices
+      - /auth/v1/unBlockOrRemoveDevices
+      - /auth/v1/getNewUsersCount/{fromDate}/{toDate}
+      
+
+awsParameterStorePropertySource:
+  enabled: true
+
+host: ec2-33-44-55-66.eu-central-1.compute.amazonaws.com
+spring:
+  application:
+    name: mongoDB
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/auth?retryWrites=true
+  jackson:
+      default-property-inclusion: NON_NULL
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: auth.mail@gmail.com
+    password: sdfsdfsfdsdf
+    protocol: smtp
+    #mail.debug: true
+    enable: true
+    auth : true
+    trust: smtp.gmail.com
+    noreply: no_reply@auth.com
+    filePath: /email/emailVerificationTemplete.html
+    
+logging:
+  level:
+    root: INFO
+    org.springframework.web: ERROR
+    com.social: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{Trx-Id}] [%thread] %-5level %logger{36} - %msg%n"
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: eu-central-1
+      accessKeyId: sdfsdfsdfsdf
+      secretKey: sdfsdfsdfsdfsdfsdfsdfsdf/sdfsdfsdfsdf
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: 8089
+
+
+
+  max-http-header-size: 40KB

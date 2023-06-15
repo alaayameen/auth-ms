@@ -1,0 +1,114 @@
+otp:
+  generate:
+    sms:
+      brandName: AuthApp
+      apiSecret: ${/config/prod/ssm/service/otp.generate.sms.apiSecret}
+      apiKey: ${/config/prod/ssm/service/otp.generate.sms.apiKey}
+    #durationMs = 10 min
+    durationMs: 600000
+    #33 min
+    restMaxNumberOfAttemptsDurationMs: 2000000
+    maxNumberOfAttempts: 5
+  validate:
+    enabled: ${/config/prod/ssm/service/otp.validate.enabled}
+    restMaxNumberOfAttemptsDurationMs: 4000000
+    maxNumberOfAttempts: 10
+
+google:
+  appIds: ${/config/prod/ssm/service/google.appIds}
+
+faceBook:
+  tokenUrl: ${/config/prod/ssm/service/faceBook.tokenUrl}
+  validateTokenUrl: ${/config/prod/ssm/service/faceBook.validateTokenUrl}
+  facebookAppId: ${/config/prod/ssm/service/faceBook.facebookAppId}
+
+awsParameterStorePropertySource:
+  enabled: true
+
+aws:
+  cloudmap:
+    enabled: true
+    namespace: ${/config/prod/ssm/service/aws.cloudmap.namespace}
+  clients:
+    user-ms:
+      fullHost: http://user-prod-11111111.eu-central-1.elb.amazonaws.com
+      serviceName: user-ms-v1
+      port: 80
+      protocol: http://
+
+ms:
+  basepath: auth
+
+auth:
+  jwt:
+    jwtRefreshExpirationMs: 3000000000
+    issuer: "Auth App"
+    audience: "Auth App"
+    timeToLiveInSeconds: 120000
+    secret: "qweqweqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww+ILqZCV2cnQQfkTpWH/4r2Tx3VvhuH1RKfwDCMsjJ1kIDZYx0iBpH2RFedqJ3WTdVJr9Jg0yI0nKqdDYfaYRh58hLpVVZg3WE3pmlaNqhXT5ZcOQ144wDitFn1/wwwwwwwwwwwlSSpGWP1RyxBczR7N0V8gP8Kyggt8cFCyU4CYszcbAwPgfYdZSA=="
+    excludedList:
+      - /auth/v1/otp/sendVerificationCode
+      - /auth/v1/forgetPassword
+      - /auth/v1/resetPassword
+      - /auth/v1/otp/validate
+      - /auth/v1/loginByGoogle
+      - /auth/v1/loginByFacebook
+      - /auth/v1/registerByMobile
+      - /auth/v1/loginByApple
+      - /auth/v1/loginByMobile
+      - /auth/v1/refreshtoken
+      - /auth/v1/verifyBirthday
+      - /auth/v1/checkUserVerificationStatus
+      - /auth/v1/login
+      - /auth/v1/register
+      
+    adminList:
+      - /user/v1/addNewUser
+      - /message/v1/generateTokenAdmin
+      - /auth/v1/deleteAuthByUserIds
+      - /auth/v1/users/{userId}/rule
+      - /auth/v1/users/rules
+      - /auth/v1/getBlockedDevices
+      - /auth/v1/unBlockOrRemoveDevices
+      - /auth/v1/getNewUsersCount/{fromDate}/{toDate}
+
+
+spring:
+  main:
+    lazy-initialization: false
+  application:
+    name: auth-service
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: ${/config/prod/ssm/service/mongo_url}/auth?retryWrites=true
+  jackson:
+      default-property-inclusion: NON_NULL
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: auth.mail@gmail.com
+    password: dzcxczxczxc
+    protocol: smtp
+    #mail.debug: true
+    enable: true
+    auth : true
+    trust: smtp.gmail.com
+    noreply: no_reply@auth.com
+    filePath: /email/emailVerificationTemplete.html
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: 80
+
+logging:
+  level:
+    root: ${/config/prod/ssm/service/logging_root_level}
+    org.springframework.web: ERROR
+    com.social: ${/config/prod/ssm/service/logging_com_auth_level}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{Trx-Id}] [%thread] %-5level %logger{36} - %msg%n"
+
+

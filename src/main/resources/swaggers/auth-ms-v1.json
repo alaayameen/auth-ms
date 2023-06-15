@@ -1,0 +1,2665 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Auth API",
+    "description": "API description in Auth.",
+    "version": "1.0.0"
+  },
+  "host": "api.social.com",
+  "basePath": "/auth/v1",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    
+    "/otp/validate": {
+      "post": {
+        "tags": [
+          "otp"
+        ],
+        "summary": "validate the sent one time password.",
+        "description": "validate the sent one time password.",
+        "operationId": "validateOTP",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "validateOPTRequest",
+            "schema": {
+              "$ref": "#/definitions/ValidateOTPRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 = passed succssfully",
+            "schema": {
+              "$ref": "#/definitions/ValidateOTPResponse"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+     "/otp/sendVerificationCode": {
+      "post": {
+        "tags": [
+          "otp"
+        ],
+        "summary": "generate And Send one time password.",
+        "description": "generate And Send one time password.",
+        "operationId": "generateAndSend",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "sendVerificationCode",
+            "schema": {
+              "$ref": "#/definitions/sendVerificationCodeRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 = passed succssfully"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBlockedDevices": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "get blocked or underage devices.",
+        "description": "get blocked or underage devices.",
+        "operationId": "getBlockedDevices",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 = passed succssfully",
+            "schema": {
+              "$ref": "#/definitions/GetAllDeviceInfoRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unBlockOrRemoveDevices": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "unblock or remove list of devices ids.",
+        "description": "unblock or remove list of devices ids.",
+        "operationId": "unBlockOrRemoveDevices",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "UnBlockOrRemoveDevicesRequest",
+            "schema": {
+              "$ref": "#/definitions/UnBlockOrRemoveDevicesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verifyBirthday": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "verify birthday.",
+        "description": "verify birthday.",
+        "operationId": "verifyBirthday",
+        "parameters": [
+		 {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": false
+         },
+ 		 {
+            "in": "body",
+            "name": "verifyBirthdayRequest",
+            "schema": {
+              "$ref": "#/definitions/VerifyBirthdayRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of UserVerificationStatusRespond",
+            "schema": {
+              "$ref": "#/definitions/UserVerificationStatusRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkUserVerificationStatus": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "check user verification status",
+        "description": "check user verification status.",
+        "operationId": "checkUserVerificationStatus",
+        "parameters": [
+ 		{
+            "name": "deviceid",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of UserVerificationStatusRespond",
+            "schema": {
+              "$ref": "#/definitions/UserVerificationStatusRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "register By Mobile or Email.",
+        "description": "register By Mobile or Email.",
+        "operationId": "register",
+        "parameters": [
+         {
+            "in": "body",
+            "name": "registerRequest",
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+     "/forgetPassword": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "generate and send one time password for the inserted mobile number or email.",
+        "description": "generate and send one time password for the inserted mobile number or email.",
+        "operationId": "forgetPassword",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "sendForgetPasswordVerificationCode",
+            "schema": {
+              "$ref": "#/definitions/SendForgetPasswordVerificationCodeRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resetPassword": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "reset password.",
+        "description": "reset password.",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "resetPassword",
+            "schema": {
+              "$ref": "#/definitions/ResetPasswordRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/changePassword": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "change password.",
+        "description": "change password.",
+        "operationId": "changePassword",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "changePassword",
+            "schema": {
+              "$ref": "#/definitions/ChangePasswordRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "login by email, mobile or username and generate token.",
+        "description": "authentication login.",
+        "operationId": "login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginRequest",
+            "schema": {
+              "$ref": "#/definitions/loginRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/loginByMobile": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "login by mobile and generate token.",
+        "description": "authentication login By Mobile.",
+        "operationId": "loginByMobile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginByMobileRequest",
+            "schema": {
+              "$ref": "#/definitions/loginByMobile"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Revoking access and refresh tokens upon logout!",
+        "description": "Revoking access and refresh tokens upon logout!",
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+         "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updatePasswordForLoginByMobile": {
+      "put": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "update login By Mobile Password.",
+        "description": "update login By Mobile Password.",
+        "operationId": "updatePasswordForLoginByMobile",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "updateLoginByMobilePasswordRequest",
+            "schema": {
+              "$ref": "#/definitions/UpdateLoginByMobilePasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/loginByGoogle": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "login/register by Google and generate token.",
+        "description": "authentication login by Google, if its your first time then the system will go register and then login",
+        "operationId": "loginByGoogle",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginByGoogleRequest",
+            "schema": {
+              "$ref": "#/definitions/loginByGoogleRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/loginByFacebook": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "login/register by Facebook and generate token.",
+        "description": "authentication login by Facebook, if its your first time then the system will go register and then login",
+        "operationId": "loginByFacebook",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginByFacebookRequest",
+            "schema": {
+              "$ref": "#/definitions/loginByFacebookRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/loginByApple": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "login/register by Apple and generate token.",
+        "description": "login/register by Apple and generate token, if its your first time then the system will go register and then login",
+        "operationId": "loginByApple",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginByAppleRequest",
+            "schema": {
+              "$ref": "#/definitions/loginByAppleRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of AuthenticateRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refreshtoken": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "refresh token.",
+        "description": "refresh token..",
+        "operationId": "refreshToken",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "RefreshTokenRequest",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of RefreshTokenRespond",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registerByMobile": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "register By Mobile.",
+        "description": "register By Mobile.",
+        "operationId": "registerByMobile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "registerByMobileRequest",
+            "schema": {
+              "$ref": "#/definitions/RegisterByMobileRequest"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of RegsterationRespond",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+   "/registerByAdmin": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "register By Admin.",
+        "description": "register By Admin.",
+        "operationId": "registerByAdmin",
+        "parameters": [
+         {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "userRule",
+            "description": "by default it will be SYTEM_CONTENT",
+            "required": false,
+            "type": "string",
+            "default": "SYSTEM_CONTENT",
+            "enum": [
+              "ADMIN",
+              "SYSTEM_CONTENT",
+              "TESTING"
+            ]
+          }
+          ,
+          {
+            "in": "body",
+            "name": "registerByAdminRequest",
+            "schema": {
+              "description": "register by admin",
+              "type": "array",
+              "items":{
+              	"$ref": "#/definitions/RegisterByMobileRequest"
+              }
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "List of acceptable human languages for response",
+            "x-example": "en-us,en;q=0.5",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[\\S ]*$"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deleteAuthByUserIds": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Delete users auth info by ids.",
+        "description": "Delete users auth info by ids.",
+        "operationId": "deleteAuthByUserIds",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "DeleteAuthByUserIdsRequest",
+            "schema": {
+              "$ref": "#/definitions/DeleteAuthByUserIdsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of DeleteAuthByUserIdsRespond",
+            "schema": {
+              "$ref": "#/definitions/DeleteAuthByUserIdsRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/rule": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "getUserRule",
+        "description": "get user rule",
+        "operationId": "get user rule",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of UserRule",
+            "schema": {
+              "$ref": "#/definitions/UserRule"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getNewUsersCount/{fromDate}/{toDate}": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "getNewUsersCount",
+        "description": "ADMIN users API, to get number of new users per day for a given period.",
+        "operationId": "getNewUsersCount",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+           {
+            "in": "query",
+            "name": "page",
+            "type": "number",
+            "required": false,
+            "default": 1,
+            "description": "Page Number to get."
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "default": 10,
+            "description": "page size of items to return."
+          },
+		   {
+            "in": "path",
+            "name": "fromDate",
+            "type": "string",
+            "format": "date",
+            "required": true,
+            "description": "fromDate: the start date to get info about number of new users"
+          },
+          {
+            "in": "path",
+            "name": "toDate",
+            "type": "string",
+            "format": "date",
+            "required": true,
+            "description": "fromDate: the start date to get info about number of new users"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetUsersCountResponse",
+            "schema": {
+              "$ref": "#/definitions/GetUsersCountResponse"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/rules": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "getUsersRules",
+        "description": "get users rules",
+        "operationId": "get users rules",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "GetRulesByUserIdsRequest",
+            "schema": {
+              "$ref": "#/definitions/GetRulesByUserIdsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON of UserRule",
+            "schema": {
+              "$ref": "#/definitions/GetRulesByUserIdsRespond"
+            }
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sendVerificationCodeRequest": {
+      "description": "The send OPT (one time password) Request",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "ValidateOTPRequest": {
+      "description": "The validate OPT (one time password) Request",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "otpCode": {
+          "type": "string",
+          "description": "the verfication code that will be send to the mobile.",
+          "minLength": 3,
+          "maxLength": 10
+        }
+      },
+      "required": [
+        "otpCode"
+      ]
+    },
+    "SendForgetPasswordVerificationCodeRequest": {
+      "description": "The validate OPT (one time password) Request for forgetPassword",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "UserName": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "mobileNumber"
+      ]
+    },
+    "ResetPasswordRequest": {
+      "description": "Reset password using the mobile number, the generated OTP and a new password",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "otpCode": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+         "UserName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mobileNumber",
+        "otpCode",
+        "password"
+      ]
+    },
+     "ChangePasswordRequest": {
+      "description": "Change password using the mobile number, current password and a new password",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "currentPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mobileNumber",
+        "currentPassword",
+        "newPassword"
+      ]
+    },
+    "ValidateOTPResponse": {
+      "description": "The Validate OTP Response",
+      "type": "object",
+      "properties": {
+        "valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "loginByMobile": {
+      "description": "The Authenticate Request",
+      "type": "object",
+      "properties": {
+        "mobileNumber": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mobileNumber",
+        "password"
+      ]
+    },
+    "loginByGoogleRequest": {
+      "description": "The Authenticate Request",
+      "type": "object",
+      "properties": {
+        "googleToken": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "googleToken"
+      ]
+    },
+    "loginByFacebookRequest": {
+      "description": "The Authenticate Request",
+      "type": "object",
+      "properties": {
+        "facebookToken": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "facebookToken"
+      ]
+    },
+    "RegisterByMobileRequest": {
+      "description": "The Register Request",
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "birthDate": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date",
+          "maxLength": 50
+        },
+        "country": {
+          "type": "string",
+          "description": "country code.",
+          "minLength": 2,
+          "maxLength": 10,
+          "example": "JO"
+        },
+        "password": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 20,
+          "example": 123456789
+        },
+        "otpCode": {
+          "type": "string",
+          "description": "the otp code (one time password).",
+          "minLength": 3,
+          "maxLength": 10
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "mobileNumber",
+        "password",
+        "otpCode"
+      ]
+    },
+    "loginByAppleRequest": {
+      "description": "The Register By Apple Request",
+      "type": "object",
+      "properties": {
+        "authorizationCode": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "authorizationCode"
+      ]
+    },
+    "GetAllDeviceInfoRespond": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/deviceInfoDetails"
+              }
+            }
+          }
+        }
+      ]
+    }, 
+    "deviceInfoDetails": {
+      "description": "device info details",
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "birthday": {
+            "type": "string",
+            "format": "date"
+        },
+        "usersIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation": {
+            "type": "string"
+        },
+		"internal":{
+			"type": "boolean",
+			"default": false
+ 		}
+      }
+    },
+    "AuthenticateRespond": {
+      "description": "The Authenticate Respond",
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "RefreshTokenRequest": {
+      "description": "Refresh Token Request",
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "refreshToken"
+      ]
+    },
+    "UserVerificationStatusRespond": {
+      "description": "User verification status respond",
+      "type": "object",
+      "properties": {
+        "verificationStatus": {
+          "type": "string",
+          "enum": [
+             "ACCEPTED",
+             "REJECTED",
+             "BLOCKED_BY_APP",
+             "USER_NOT_FOUND"
+           ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "UnBlockOrRemoveDevicesRequest": {
+      "type": "object",
+      "properties": {
+        "devicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isRemoveDevices": {
+			"type": "boolean",
+			"default": false
+		}
+      },
+      "required": [
+        "devicesIds"
+      ]
+    },
+    "RefreshTokenRespond": {
+      "description": "Refresh Token Request",
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "RegisterByEmailRequest": {
+      "description": "The Register Request",
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "email": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "otpCode": {
+          "type": "string",
+          "description": "the otp code (one time password).",
+          "minLength": 3,
+          "maxLength": 10
+        },
+        "birthDate": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date",
+          "maxLength": 50
+        },
+        "country": {
+          "type": "string",
+          "description": "country code.",
+          "minLength": 2,
+          "maxLength": 10,
+          "example": "JO"
+        },
+        "password": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+	"loginByEmail": {
+      "description": "The Authenticate Request",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "restoreAccount": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "loginRequest": {
+      "description": "login requst.",
+      "type": "object",
+      "properties": {
+        "loginValue": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+       	"restoreAccount": {
+          "type": "boolean"
+      	}
+      },
+      "required": [
+        "loginValue",
+        "password"
+      ]
+    },
+    "DeleteAuthByUserIdsRequest": {
+      "description": "The delete users auth info by ids request",
+      "type": "object",
+      "properties": {
+        "usersIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          }
+        }
+      },
+      "required": [
+        "usersIds"
+      ]
+    },
+    "GetRulesByUserIdsRequest": {
+      "description": "get rules by user ids request",
+      "type": "object",
+      "properties": {
+        "usersIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "usersIds"
+      ]
+    },
+    "DeleteAuthByUserIdsRespond": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DeleteUsersStatus"
+      }
+    },
+    "GetRulesByUserIdsRespond": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UserRule"
+      }
+    },
+    "VerifyBirthdayRequest": {
+	   "type": "object",
+       "properties": {
+        	"birthday": {
+            	"type": "string",
+            	"format": "date"
+        	},
+        	"userId": {
+				"type": "string"
+			},
+			"internal":{
+				"type": "boolean",
+				"default": false
+ 			}
+      	}
+	},
+	 "RegisterRequest": {
+      "description": "The Register Request",
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "mobileOrEmail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "birthDate": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date",
+          "maxLength": 50
+        },
+        "otpCode": {
+          "type": "string",
+          "description": "the otp code (one time password).",
+          "minLength": 3,
+          "maxLength": 10
+        },
+        "country": {
+          "type": "string",
+          "description": "country code.",
+          "minLength": 2,
+          "maxLength": 10,
+          "example": "JO"
+        },
+        "password": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "mobileOrEmail",
+        "password"
+      ]
+    },
+    "UpdateLoginByMobilePasswordRequest": {
+      "description": "UpdateLoginByMobilePasswordRequest",
+      "type": "object",
+      "properties": {
+        "currentPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "currentPassword",
+        "newPassword"
+      ]
+    },
+    "DeleteUsersStatus": {
+      "description": "Delete users auth info status per user",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "deleteStatus": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GetUsersCountResponse": {
+      "description": "GetUsersCountResponse",
+      "type": "object",
+      "properties": {
+        "usersCountList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userCountDetails"
+          }
+        }
+      }
+      },
+    "userCountDetails": {
+      "description": "User Details Object",
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "count": {
+          "type": "integer"
+        }
+       }
+     },
+    "UserRule": {
+      "description": "User rule",
+      "type": "object",
+      "properties": {
+        "rule": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

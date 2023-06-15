@@ -1,0 +1,133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Auth Content Management API",
+    "description": "API description in User.",
+    "version": "1.0.1"
+  },
+  "host": "api.social.com",
+  "basePath": "/auth/v1",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/content-management/manageContentById": {
+      "post": {
+        "tags": [
+          "content-management"
+        ],
+        "summary": "Content management actions by user ids.",
+        "description": "Delete/restore/ban content by user ids.",
+        "operationId": "manageContentByContentId",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "ContentManagementRequest",
+            "schema": {
+              "$ref": "#/definitions/ContentManagementRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "error 400",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Bad Request",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "401": {
+            "description": "error 401",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Unauthorized",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "404": {
+            "description": "error 404",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180+00:00",
+                "status": "HTTP_STATS",
+                "error": "Not Found",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          },
+          "default": {
+            "description": "error 500",
+            "schema": {
+              "example": {
+                "timestamp": "2021-05-23T22:22:04.180Z",
+                "status": "HTTP_STATS",
+                "error": "Internal Server Error",
+                "message": "ERROR_CODE",
+                "path": "/path"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ContentManagementRequest": {
+      "description": "content management by id request",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "idType": {"type": "string", "enum": ["USER_ID"]},
+        "reportId": {"type":  "string"},
+        "contentCommand": {
+          "type": "string",
+          "enum": [
+            "DIRECT_ADMIN_SOFT_DELETE", "DIRECT_ADMIN_RESTORE_CONTENT", "DIRECT_ADMIN_HARD_DELETE",
+            "REPORT_SOFT_DELETE", "REPORT_RESTORE_DELETE", "REPORT_HARD_DELETE",
+            "DELETE_ACCOUNT_SOFT_DELETE", "DELETE_ACCOUNT_RESTORE_CONTENT",
+            "BAN_ACCOUNT", "UN_BAN_ACCOUNT"]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id", "contentCommand"
+      ]
+    }
+  }
+}
