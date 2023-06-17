@@ -14,13 +14,4 @@ Its Java based Microservice built with Spring Boot Framework, It designed to han
 
 ## Tech Stack
 
-**Server:** Java, Spring Boot, swagger and MongoDB
-
-
-## GitHub Repo
-
-[OpTube](https://github.com/alaayameen/auth-ms)
-
-
-
-
+**Server:** Java, Spring Boot, swagger And MongoDB
